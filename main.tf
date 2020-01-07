@@ -33,6 +33,9 @@ module "camtags" {
 #########################################################
 variable "datacenter" {
   description = "Softlayer datacenter where infrastructure resources will be deployed"
+
+variable "os_reference_code" {
+  description = "Operating System"
 }
 
 variable "hostname" {
@@ -69,7 +72,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 ##############################################################
 resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   hostname                 = "${var.hostname}"
-  os_reference_code        = "CENTOS_7_64"
+  os_reference_code        = "${var.os_reference_code}"
   domain                   = "cam.ibm.com"
   datacenter               = "${var.datacenter}"
   network_speed            = 10
