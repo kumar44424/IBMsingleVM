@@ -33,7 +33,7 @@ module "camtags" {
 #########################################################
 variable "datacenter" {
   description = "Softlayer datacenter where infrastructure resources will be deployed"
-
+  }
 variable "os_reference_code" {
   description = "Operating System"
 }
