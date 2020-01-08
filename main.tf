@@ -178,7 +178,7 @@ output "server_ip_address_redhat" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
 }
 
-output "server_ip_address_redhat" {
+output "server_ip_address_windows" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest3.ipv4_address}"
 }
   
