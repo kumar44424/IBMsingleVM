@@ -70,9 +70,10 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 ##############################################################
 # Create Virtual Machine and install MongoDB
 ##############################################################
-resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
+  
+  resource "ibm_compute_vm_instance_Ubuntu" "softlayer_virtual_guest" {
   hostname                 = "${var.hostname}"
-  os_reference_code        = "${var.os_reference_code}"
+  os_reference_code        = "UBUNTU_16_04_64"
   domain                   = "cam.ibm.com"
   datacenter               = "${var.datacenter}"
   network_speed            = 10
@@ -85,19 +86,20 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   local_disk               = false
   ssh_key_ids              = ["${ibm_compute_ssh_key.cam_public_key.id}", "${ibm_compute_ssh_key.temp_public_key.id}"]
   tags                     = ["${module.camtags.tagslist}"]
+  }
 
   # Specify the ssh connection
-  connection {
-    user        = "root"
-    private_key = "${tls_private_key.ssh.private_key_pem}"
-    host        = "${self.ipv4_address}"
-    bastion_host        = "${var.bastion_host}"
-    bastion_user        = "${var.bastion_user}"
-    bastion_private_key = "${ length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key}"
-    bastion_port        = "${var.bastion_port}"
-    bastion_host_key    = "${var.bastion_host_key}"
-    bastion_password    = "${var.bastion_password}"
-  }
+  #connection {
+  #  user        = "root"
+  #  private_key = "${tls_private_key.ssh.private_key_pem}"
+  #  host        = "${self.ipv4_address}"
+  #  bastion_host        = "${var.bastion_host}"
+  #  bastion_user        = "${var.bastion_user}"
+  #  bastion_private_key = "${ length(var.bastion_private_key) > 0 ? base64decode(var.bastion_private_key) : var.bastion_private_key}"
+  #  bastion_port        = "${var.bastion_port}"
+  #  bastion_host_key    = "${var.bastion_host_key}"
+  #  bastion_password    = "${var.bastion_password}"
+  #}
 
   # Create the installation script
   #provisioner "file" {
@@ -121,7 +123,7 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
 #EOF
 
 #    destination = "/tmp/installation.sh"
-}
+#}
 
   # Execute the script remotely
 #  provisioner "remote-exec" {
@@ -134,6 +136,6 @@ resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
 #########################################################
 # Output
 #########################################################
-output "nodejs_server_ip_address" {
-  value = "${ibm_compute_vm_instance.softlayer_virtual_guest.ipv4_address}"
+output "server_ip_address" {
+  value = "${ibm_compute_vm_instance_Ubuntu.softlayer_virtual_guest.ipv4_address}"
 }
