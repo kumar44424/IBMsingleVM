@@ -159,3 +159,6 @@ output "server_ip_address" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest1.ipv4_address}"
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
 }
+output "server_ip_address" {
+  value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
+}
