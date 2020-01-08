@@ -160,28 +160,6 @@
     },
     
     {
-        "description": " Opearing systems",
-        "hidden": false,
-        "immutable": false,
-        "label": "Operating System",
-        "name": "os_reference_code",
-        "required": true,
-        "secured": false,
-        "type": "string",
-        "options": [
-          {
-              "value": "REDHAT_7_64",
-              "label": "RedHat Linux Version 7"
-          },
-          {
-              "value": "CENTOS_7_64",
-              "label": "Cent OS Version 7"
-          }
-        ],
-        "group": "virtualmachine"
-    },
-    
-    {
         "description": "Hostname of the virtual instance to be deployed; Allow 1 to 200 alphanumeric characters and non-consecutive non-leading non-ending dashes",
         "hidden": false,
         "immutable": false,
