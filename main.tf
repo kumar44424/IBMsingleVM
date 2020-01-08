@@ -34,10 +34,16 @@ module "camtags" {
 variable "datacenter" {
   description = "Softlayer datacenter where infrastructure resources will be deployed"
   }
-variable "os_reference_code" {
-  description = "Operating System"
+variable "memory_red" {
+  description = "memory"
 }
-
+variable "memory_ubuntu" {
+  description = "memory"
+}
+variable "memory_windows" {
+  description = "memory"
+}  
+  
 variable "hostname" {
   description = "Hostname of the virtual instance to be deployed"
 }
@@ -80,7 +86,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   hourly_billing           = true
   private_network_only     = false
   cores                    = 1
-  memory                   = 1024
+  memory                   = "${var.memory_ubuntu}"
   disks                    = [25]
   dedicated_acct_host_only = false
   local_disk               = false
@@ -98,7 +104,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   hourly_billing           = true
   private_network_only     = false
   cores                    = 1
-  memory                   = 1024
+  memory                   = "${var.memory_red}"
   disks                    = [25]
   dedicated_acct_host_only = false
   local_disk               = false
@@ -115,7 +121,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   hourly_billing           = true
   private_network_only     = false
   cores                    = 2
-  memory                   = 2048
+  memory                   = "${var.memory_windows}"
   disks                    = [100]
   dedicated_acct_host_only = false
   local_disk               = false
