@@ -105,6 +105,22 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   ssh_key_ids              = ["${ibm_compute_ssh_key.cam_public_key.id}", "${ibm_compute_ssh_key.temp_public_key.id}"]
   tags                     = ["${module.camtags.tagslist}"]
   }
+  
+   resource "ibm_compute_vm_instance" "softlayer_virtual_guest3" {
+  hostname                 = "${var.hostname}"
+  os_reference_code        = "WIN_2012-STD-R2_64"
+  domain                   = "cam.ibm.com"
+  datacenter               = "${var.datacenter}"
+  network_speed            = 10
+  hourly_billing           = true
+  private_network_only     = false
+  cores                    = 1
+  memory                   = 1024
+  disks                    = [25]
+  dedicated_acct_host_only = false
+  local_disk               = false
+  tags                     = ["${module.camtags.tagslist}"]
+  }
 
 
   # Specify the ssh connection
@@ -161,3 +177,8 @@ output "server_ip_address_ubnutu" {
 output "server_ip_address_redhat" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
 }
+
+output "server_ip_address_redhat" {
+  value = "${ibm_compute_vm_instance.softlayer_virtual_guest3.ipv4_address}"
+}
+  
