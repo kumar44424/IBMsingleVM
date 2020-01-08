@@ -71,7 +71,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 # Create Virtual Machine and install MongoDB
 ##############################################################
   
-  resource "ibm_compute_vm_instance_Ubuntu" "softlayer_virtual_guest" {
+  resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
   hostname                 = "${var.hostname}"
   os_reference_code        = "UBUNTU_16_04_64"
   domain                   = "cam.ibm.com"
@@ -137,5 +137,5 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 # Output
 #########################################################
 output "server_ip_address" {
-  value = "${ibm_compute_vm_instance_Ubuntu.softlayer_virtual_guest.ipv4_address}"
+  value = "${ibm_compute_vm_instance.softlayer_virtual_guest.ipv4_address}"
 }
