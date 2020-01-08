@@ -155,10 +155,9 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 #########################################################
 # Output
 #########################################################
-output "server_ip_address" {
+output "server_ip_address_ubnutu" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest1.ipv4_address}"
-  value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
 }
-output "server_ip_address" {
+output "server_ip_address_redhat" {
   value = "${ibm_compute_vm_instance.softlayer_virtual_guest2.ipv4_address}"
 }
