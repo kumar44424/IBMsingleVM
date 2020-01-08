@@ -71,7 +71,7 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 # Create Virtual Machine and install MongoDB
 ##############################################################
   
-  resource "ibm_compute_vm_instance" "softlayer_virtual_guest" {
+  resource "ibm_compute_vm_instance1" "softlayer_virtual_guest" {
   hostname                 = "${var.hostname}"
   os_reference_code        = "UBUNTU_18_64"
   domain                   = "cam.ibm.com"
@@ -87,6 +87,25 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
   ssh_key_ids              = ["${ibm_compute_ssh_key.cam_public_key.id}", "${ibm_compute_ssh_key.temp_public_key.id}"]
   tags                     = ["${module.camtags.tagslist}"]
   }
+  
+    
+  resource "ibm_compute_vm_instance2" "softlayer_virtual_guest" {
+  hostname                 = "${var.hostname}"
+  os_reference_code        = "REDHAT_7_64"
+  domain                   = "cam.ibm.com"
+  datacenter               = "${var.datacenter}"
+  network_speed            = 10
+  hourly_billing           = true
+  private_network_only     = false
+  cores                    = 1
+  memory                   = 1024
+  disks                    = [25]
+  dedicated_acct_host_only = false
+  local_disk               = false
+  ssh_key_ids              = ["${ibm_compute_ssh_key.cam_public_key.id}", "${ibm_compute_ssh_key.temp_public_key.id}"]
+  tags                     = ["${module.camtags.tagslist}"]
+  }
+
 
   # Specify the ssh connection
   #connection {
@@ -137,5 +156,6 @@ resource "ibm_compute_ssh_key" "temp_public_key" {
 # Output
 #########################################################
 output "server_ip_address" {
-  value = "${ibm_compute_vm_instance.softlayer_virtual_guest.ipv4_address}"
+  value = "${ibm_compute_vm_instance1.softlayer_virtual_guest.ipv4_address}"
+  value = "${ibm_compute_vm_instance2.softlayer_virtual_guest.ipv4_address}"
 }
